@@ -1,26 +1,35 @@
-import React, { InputHTMLAttributes } from 'react';
+import React, { InputHTMLAttributes, forwardRef } from 'react';
+import { cn } from '../utils/cn';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   error?: string | null;
 }
 
-export default function Input({ error, className = '', ...props }: InputProps) {
-  return (
-    <div className="space-y-1">
-      <input
-        className={`w-full px-4 py-2 rounded-lg border-2 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-la-ai-400 focus:ring-offset-1 ${
-          error 
-            ? 'border-la-ai-red-400 focus:border-la-ai-red-500' 
-            : 'border-gray-200 focus:border-la-ai-500 hover:border-gray-300'
-        } ${className}`}
-        {...props}
-      />
-      {error && (
-        <p className="text-sm text-la-ai-red-500 flex items-center">
-          <span className="w-1 h-1 bg-la-ai-red-500 rounded-full mr-2"></span>
-          {error}
-        </p>
-      )}
-    </div>
-  );
-}
+const Input = forwardRef<HTMLInputElement, InputProps>(
+  ({ className, type, error, ...props }, ref) => {
+    return (
+      <div className="space-y-1">
+        <input
+          type={type}
+          className={cn(
+            'flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
+            error && 'border-destructive focus-visible:ring-destructive',
+            className
+          )}
+          ref={ref}
+          {...props}
+        />
+        {error && (
+          <p className="text-sm text-destructive flex items-center">
+            <span className="w-1 h-1 bg-destructive rounded-full mr-2"></span>
+            {error}
+          </p>
+        )}
+      </div>
+    );
+  }
+);
+
+Input.displayName = 'Input';
+
+export default Input;

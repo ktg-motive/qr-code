@@ -2,7 +2,7 @@
 
 A professional QR code generator built for Lower Alabama AI (LA-AI), featuring support for multiple data types and custom logo overlays.
 
-![LA-AI Logo](src/assets/la-ai-logo.svg)
+![LA-AI Logo](src/assets/la-ai-logo.png)
 
 ## Features
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import { FileText, User, Wifi, Mail, MessageSquare, MapPin } from 'lucide-react';
 import { QRDataType } from '../types/qrTypes';
+import { cn } from '../utils/cn';
 
 interface DataTypeSelectorProps {
   selected: QRDataType;
@@ -19,21 +20,23 @@ export default function DataTypeSelector({ selected, onSelect }: DataTypeSelecto
 
   return (
     <div className="mb-6">
-      <h3 className="text-sm font-semibold text-gray-700 mb-3 tracking-wide">QR CODE TYPE</h3>
+      <h3 className="text-sm font-semibold text-muted-foreground mb-3 tracking-wide uppercase">QR Code Type</h3>
       <div className="grid grid-cols-2 gap-3">
         {types.map((type) => (
           <button
             key={type.value}
             onClick={() => onSelect(type.value)}
-            className={`p-4 rounded-lg border-2 flex flex-col items-center gap-2 transition-all duration-200 ${
+            className={cn(
+              'p-4 rounded-lg border-2 flex flex-col items-center gap-2 transition-all duration-200',
               selected === type.value
-                ? 'border-la-ai-500 bg-la-ai-50 text-la-ai-700 shadow-md scale-105'
-                : 'border-gray-200 hover:border-la-ai-300 text-gray-600 hover:bg-gray-50'
-            }`}
+                ? 'border-primary bg-primary/5 text-primary shadow-md scale-105'
+                : 'border-border hover:border-primary/50 text-muted-foreground hover:bg-accent hover:text-accent-foreground'
+            )}
           >
-            <type.icon className={`w-5 h-5 ${
-              selected === type.value ? 'text-la-ai-600' : 'text-gray-500'
-            }`} />
+            <type.icon className={cn(
+              'w-5 h-5',
+              selected === type.value ? 'text-primary' : 'text-muted-foreground'
+            )} />
             <span className="text-xs font-medium leading-tight text-center">{type.label}</span>
           </button>
         ))}

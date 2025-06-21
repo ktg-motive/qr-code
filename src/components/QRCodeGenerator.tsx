@@ -120,7 +120,7 @@ export default function QRCodeGenerator() {
       const dataString = generateDataString();
       const qrDataUrl = await generateQRCode(dataString, logo);
       setQRCode(qrDataUrl);
-    } catch (err) {
+    } catch {
       setError('Failed to generate QR code. Please try again.');
       setQRCode(null);
     } finally {
@@ -222,13 +222,13 @@ export default function QRCodeGenerator() {
         {renderDataForm()}
 
         {error && (
-          <div className="text-sm text-la-ai-red-600 bg-la-ai-red-50 border border-la-ai-red-200 p-3 rounded-lg flex items-start">
-            <div className="w-2 h-2 bg-la-ai-red-500 rounded-full mt-1.5 mr-3 flex-shrink-0"></div>
+          <div className="text-sm text-destructive bg-destructive/10 border border-destructive/20 p-3 rounded-lg flex items-start">
+            <div className="w-2 h-2 bg-destructive rounded-full mt-1.5 mr-3 flex-shrink-0"></div>
             <span>{error}</span>
           </div>
         )}
 
-        <div className="border-t border-gray-200 pt-4">
+        <div className="border-t border-border pt-4">
           <FileUpload
             onFileSelect={handleLogoSelect}
             error={logoError}
@@ -246,9 +246,9 @@ export default function QRCodeGenerator() {
       </div>
 
       {qrCode && (
-        <div className="space-y-4 border-t border-gray-200 pt-6">
+        <div className="space-y-4 border-t border-border pt-6">
           <div className="flex justify-center">
-            <div className="p-4 bg-white border-2 border-gray-200 rounded-xl shadow-sm">
+            <div className="p-4 bg-card border-2 border-border rounded-xl shadow-sm">
               <img
                 src={qrCode}
                 alt="Generated QR Code"
