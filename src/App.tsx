@@ -1,13 +1,14 @@
 import React from 'react';
 import Header from './components/Header';
+import Footer from './components/Footer';
 import QRCodeGenerator from './components/QRCodeGenerator';
 
 function App() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background flex flex-col">
       <Header />
 
-      <div className="flex flex-col items-center px-4 pb-12">
+      <main className="flex-1 flex flex-col items-center px-4 pb-12">
         <div className="w-full max-w-md">
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-foreground mb-2">
@@ -22,7 +23,9 @@ function App() {
             <QRCodeGenerator />
           </div>
         </div>
-      </div>
+      </main>
+
+      <Footer />
     </div>
   );
 }

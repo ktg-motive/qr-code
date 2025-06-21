@@ -1,4 +1,5 @@
 import React from 'react';
+import laAiLogo from '../assets/la-ai-logo.png';
 
 export default function Header() {
   return (
@@ -7,7 +8,7 @@ export default function Header() {
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
             <img
-              src="/src/assets/la-ai-logo.png"
+              src={laAiLogo}
               alt="LA-AI Logo"
               className="w-12 h-12 rounded-lg"
             />
