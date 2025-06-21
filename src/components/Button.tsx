@@ -11,10 +11,10 @@ export default function Button({
   disabled,
   ...props
 }: ButtonProps) {
-  const baseStyles = 'flex items-center justify-center px-4 py-2 rounded-lg font-medium transition-colors duration-200';
+  const baseStyles = 'flex items-center justify-center px-4 py-2 rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-la-ai-400 focus:ring-offset-2';
   const variants = {
-    primary: 'bg-blue-600 text-white hover:bg-blue-700 disabled:bg-blue-300',
-    outline: 'border-2 border-blue-600 text-blue-600 hover:bg-blue-50 disabled:border-blue-300 disabled:text-blue-300',
+    primary: 'bg-la-ai-500 text-white hover:bg-la-ai-600 disabled:bg-gray-300 disabled:text-gray-500 shadow-sm hover:shadow-md',
+    outline: 'border-2 border-la-ai-500 text-la-ai-600 hover:bg-la-ai-50 disabled:border-gray-300 disabled:text-gray-400 disabled:hover:bg-transparent',
   };
 
   return (

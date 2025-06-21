@@ -1,5 +1,6 @@
 import QRCode from 'qrcode';
 import { getAverageColor } from './colorUtils';
+import { VCardData, WifiData, EmailData, SMSData, LocationData } from '../types/qrTypes';
 
 async function loadImage(src: string): Promise<HTMLImageElement> {
   return new Promise((resolve, reject) => {
@@ -21,6 +22,51 @@ async function getLogoColor(logoFile: File): Promise<string> {
   ctx.drawImage(logoImg, 0, 0);
 
   return getAverageColor(canvas);
+}
+
+export function encodeVCard(data: VCardData): string {
+  let vcard = 'BEGIN:VCARD\nVERSION:3.0\n';
+  
+  if (data.firstName || data.lastName) {
+    const fullName = `${data.firstName} ${data.lastName}`.trim();
+    vcard += `FN:${fullName}\n`;
+    vcard += `N:${data.lastName};${data.firstName};;;\n`;
+  }
+  
+  if (data.organization) vcard += `ORG:${data.organization}\n`;
+  if (data.title) vcard += `TITLE:${data.title}\n`;
+  if (data.phone) vcard += `TEL:${data.phone}\n`;
+  if (data.email) vcard += `EMAIL:${data.email}\n`;
+  if (data.website) vcard += `URL:${data.website}\n`;
+  
+  if (data.address) {
+    const addr = data.address;
+    vcard += `ADR:;;${addr.street || ''};${addr.city || ''};${addr.state || ''};${addr.zip || ''};${addr.country || ''}\n`;
+  }
+  
+  vcard += 'END:VCARD';
+  return vcard;
+}
+
+export function encodeWifi(data: WifiData): string {
+  return `WIFI:T:${data.security};S:${data.ssid};P:${data.password};H:${data.hidden ? 'true' : 'false'};;`;
+}
+
+export function encodeEmail(data: EmailData): string {
+  let email = `mailto:${data.to}`;
+  const params = [];
+  if (data.subject) params.push(`subject=${encodeURIComponent(data.subject)}`);
+  if (data.body) params.push(`body=${encodeURIComponent(data.body)}`);
+  if (params.length > 0) email += `?${params.join('&')}`;
+  return email;
+}
+
+export function encodeSMS(data: SMSData): string {
+  return `sms:${data.phone}${data.message ? `?body=${encodeURIComponent(data.message)}` : ''}`;
+}
+
+export function encodeLocation(data: LocationData): string {
+  return `geo:${data.latitude},${data.longitude}${data.label ? `?q=${encodeURIComponent(data.label)}` : ''}`;
 }
 
 export async function generateQRCode(

@@ -1,0 +1,32 @@
+<svg width="300" height="300" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle for logo -->
+  <circle cx="150" cy="150" r="140" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2"/>
+  
+  <!-- LA Letters -->
+  <g fill="#5A9EA6">
+    <!-- L -->
+    <rect x="60" y="80" width="20" height="100"/>
+    <rect x="60" y="160" width="50" height="20"/>
+    
+    <!-- A top -->
+    <path d="M140 80 L200 80 Q220 80 220 100 L220 140 Q220 160 200 160 L180 160 L180 140 L200 140 Q200 140 200 120 L200 100 Q200 100 180 100 L160 100 Q140 100 140 120 L140 140 Q140 160 160 160 L180 160 L180 180 L160 180 Q120 180 120 140 L120 100 Q120 80 140 80 Z"/>
+  </g>
+  
+  <!-- AI Letters -->
+  <g fill="#5A9EA6">
+    <!-- A bottom -->
+    <path d="M60 200 L120 200 Q140 200 140 220 L140 240 Q140 260 120 260 L100 260 L100 240 L120 240 Q120 240 120 220 L120 220 Q120 220 100 220 L80 220 Q60 220 60 240 L60 240 Q60 260 80 260 L100 260 L100 280 L80 280 Q40 280 40 240 L40 220 Q40 200 60 200 Z"/>
+    
+    <!-- I -->
+    <rect x="160" y="200" width="20" height="80"/>
+    <rect x="140" y="200" width="60" height="20"/>
+    <rect x="140" y="260" width="60" height="20"/>
+  </g>
+  
+  <!-- Red accent triangle -->
+  <path fill="#B83C3C" d="M40 200 L80 200 L40 240 Z"/>
+  
+  <!-- Text -->
+  <text x="150" y="50" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#333" text-anchor="middle" letter-spacing="2px">LOWER ALABAMA</text>
+  <text x="150" y="320" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#333" text-anchor="middle" letter-spacing="2px">ARTIFICIAL INTELLIGENCE</text>
+</svg>
