@@ -71,7 +71,8 @@ export function encodeLocation(data: LocationData): string {
 
 export async function generateQRCode(
   text: string,
-  logoFile?: File | null
+  logoFile?: File | null,
+  customColor?: string | null
 ): Promise<string> {
   try {
     // Generate QR code on canvas
@@ -81,9 +82,11 @@ export async function generateQRCode(
     const ctx = canvas.getContext('2d');
     if (!ctx) throw new Error('Could not get canvas context');
 
-    // Get logo color if logo is provided
+    // Use custom color if provided, otherwise extract from logo, or default to black
     let qrColor = '#000000';
-    if (logoFile) {
+    if (customColor) {
+      qrColor = customColor;
+    } else if (logoFile) {
       qrColor = await getLogoColor(logoFile);
     }
 

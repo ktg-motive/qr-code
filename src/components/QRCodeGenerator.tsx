@@ -6,6 +6,7 @@ import Button from './Button';
 import Input from './Input';
 import FileUpload from './FileUpload';
 import DataTypeSelector from './DataTypeSelector';
+import ColorPicker from './ColorPicker';
 import VCardForm from './VCardForm';
 import WifiForm from './WifiForm';
 import EmailForm from './EmailForm';
@@ -57,6 +58,8 @@ export default function QRCodeGenerator() {
   const [error, setError] = useState<string | null>(null);
   const [logoError, setLogoError] = useState<string | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
+  const [customColor, setCustomColor] = useState<string | null>(null);
+  const [qrColor, setQrColor] = useState('#000000');
 
   const handleLogoSelect = (file: File) => {
     if (file.size > 1024 * 1024) {
@@ -65,6 +68,18 @@ export default function QRCodeGenerator() {
     }
     setLogoError(null);
     setLogo(file);
+    // Reset custom color when new logo is selected to use auto-color
+    setCustomColor(null);
+  };
+
+  const handleColorChange = (color: string) => {
+    setCustomColor(color);
+    setQrColor(color);
+  };
+
+  const handleColorReset = () => {
+    setCustomColor(null);
+    setQrColor('#000000');
   };
 
   const generateDataString = (): string => {
@@ -118,7 +133,7 @@ export default function QRCodeGenerator() {
 
     try {
       const dataString = generateDataString();
-      const qrDataUrl = await generateQRCode(dataString, logo);
+      const qrDataUrl = await generateQRCode(dataString, logo, customColor);
       setQRCode(qrDataUrl);
     } catch {
       setError('Failed to generate QR code. Please try again.');
@@ -228,10 +243,18 @@ export default function QRCodeGenerator() {
           </div>
         )}
 
-        <div className="border-t border-border pt-4">
+        <div className="border-t border-border pt-4 space-y-4">
           <FileUpload
             onFileSelect={handleLogoSelect}
             error={logoError}
+          />
+
+          <ColorPicker
+            value={qrColor}
+            onChange={handleColorChange}
+            onReset={handleColorReset}
+            isAutoColor={customColor === null}
+            disabled={isGenerating}
           />
         </div>
         
