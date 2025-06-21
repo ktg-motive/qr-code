@@ -36,7 +36,7 @@ export default function FileUpload({ onFileSelect, accept = 'image/*', error }: 
         <Upload className="w-4 h-4 mr-2" />
         Upload Logo
       </Button>
-      {error && <p className="text-sm text-red-500">{error}</p>}
+      {error && <p className="text-sm text-destructive">{error}</p>}
     </div>
   );
 }
