@@ -246,13 +246,13 @@ export default function QRCodeGenerator() {
       </div>
 
       {qrCode && (
-        <div className="space-y-4 border-t border-border pt-6">
+        <div className="space-y-4 border-t border-border pt-4">
           <div className="flex justify-center">
-            <div className="p-4 bg-card border-2 border-border rounded-xl shadow-sm">
+            <div className="p-3 bg-card border-2 border-border rounded-xl shadow-sm">
               <img
                 src={qrCode}
                 alt="Generated QR Code"
-                className="w-64 h-64 rounded-lg"
+                className="w-48 h-48 sm:w-64 sm:h-64 rounded-lg"
               />
             </div>
           </div>
