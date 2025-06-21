@@ -1,5 +1,3 @@
-echo "# QR Code Generator
-
 A React TypeScript application for generating QR codes with optional logo overlays.
 
 ## Features
