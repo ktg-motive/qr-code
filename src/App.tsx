@@ -4,8 +4,16 @@ import Footer from './components/Footer';
 import QRCodeGenerator from './components/QRCodeGenerator';
 
 function App() {
+  // Apply dark class to document element
+  React.useEffect(() => {
+    document.documentElement.classList.add('dark');
+    return () => {
+      document.documentElement.classList.remove('dark');
+    };
+  }, []);
+
   return (
-    <div className="min-h-screen bg-background flex flex-col dark">
+    <div className="min-h-screen bg-background flex flex-col">
       <Header />
 
       <main className="flex-1 flex flex-col items-center px-3 pb-8 sm:px-4">
