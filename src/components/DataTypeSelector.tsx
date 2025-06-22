@@ -29,13 +29,13 @@ export default function DataTypeSelector({ selected, onSelect }: DataTypeSelecto
             className={cn(
               'p-4 rounded-lg border-2 flex flex-col items-center gap-2 transition-all duration-200',
               selected === type.value
-                ? 'border-primary bg-primary/5 text-primary shadow-md scale-105'
-                : 'border-border hover:border-primary/50 text-muted-foreground hover:bg-accent hover:text-accent-foreground'
+                ? 'border-blue-500 bg-blue-500/10 text-blue-600 dark:text-blue-400 shadow-lg shadow-blue-500/20 scale-105 ring-2 ring-blue-500/20'
+                : 'border-border hover:border-primary/50 text-muted-foreground hover:bg-accent hover:text-accent-foreground hover:scale-102'
             )}
           >
             <type.icon className={cn(
               'w-5 h-5',
-              selected === type.value ? 'text-primary' : 'text-muted-foreground'
+              selected === type.value ? 'text-blue-600 dark:text-blue-400' : 'text-muted-foreground'
             )} />
             <span className="text-xs font-medium leading-tight text-center">{type.label}</span>
           </button>
