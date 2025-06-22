@@ -11,6 +11,55 @@ async function loadImage(src: string): Promise<HTMLImageElement> {
   });
 }
 
+async function compressImage(file: File, maxWidth: number = 800, quality: number = 0.8): Promise<File> {
+  return new Promise((resolve, reject) => {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    if (!ctx) {
+      reject(new Error('Could not get canvas context'));
+      return;
+    }
+
+    const img = new Image();
+    img.onload = () => {
+      // Calculate new dimensions while maintaining aspect ratio
+      let { width, height } = img;
+      if (width > maxWidth) {
+        height = (height * maxWidth) / width;
+        width = maxWidth;
+      }
+      if (height > maxWidth) {
+        width = (width * maxWidth) / height;
+        height = maxWidth;
+      }
+
+      canvas.width = width;
+      canvas.height = height;
+
+      // Draw and compress
+      ctx.drawImage(img, 0, 0, width, height);
+      canvas.toBlob(
+        (blob) => {
+          if (blob) {
+            const compressedFile = new File([blob], file.name, {
+              type: 'image/jpeg',
+              lastModified: Date.now(),
+            });
+            resolve(compressedFile);
+          } else {
+            reject(new Error('Failed to compress image'));
+          }
+        },
+        'image/jpeg',
+        quality
+      );
+    };
+
+    img.onerror = () => reject(new Error('Failed to load image'));
+    img.src = URL.createObjectURL(file);
+  });
+}
+
 async function getLogoColor(logoFile: File): Promise<string> {
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');
@@ -68,6 +117,8 @@ export function encodeSMS(data: SMSData): string {
 export function encodeLocation(data: LocationData): string {
   return `geo:${data.latitude},${data.longitude}${data.label ? `?q=${encodeURIComponent(data.label)}` : ''}`;
 }
+
+export { compressImage };
 
 export async function generateQRCode(
   text: string,

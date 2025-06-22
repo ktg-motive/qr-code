@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { QrCode, Download } from 'lucide-react';
-import { generateQRCode, encodeVCard, encodeWifi, encodeEmail, encodeSMS, encodeLocation } from '../utils/qrCodeUtils';
+import { generateQRCode, encodeVCard, encodeWifi, encodeEmail, encodeSMS, encodeLocation, compressImage } from '../utils/qrCodeUtils';
 import { QRDataType, VCardData, WifiData, EmailData, SMSData, LocationData } from '../types/qrTypes';
 import Button from './Button';
 import Input from './Input';
@@ -61,15 +61,34 @@ export default function QRCodeGenerator() {
   const [customColor, setCustomColor] = useState<string | null>(null);
   const [qrColor, setQrColor] = useState('#000000');
 
-  const handleLogoSelect = (file: File) => {
-    if (file.size > 1024 * 1024) {
-      setLogoError('Logo file size must be less than 1MB');
+  const handleLogoSelect = async (file: File) => {
+    const maxSize = 10 * 1024 * 1024; // 10MB limit
+    const compressionThreshold = 2 * 1024 * 1024; // Compress files over 2MB
+    
+    if (file.size > maxSize) {
+      setLogoError('Logo file size must be less than 10MB. Please choose a smaller image.');
       return;
     }
+
     setLogoError(null);
-    setLogo(file);
-    // Reset custom color when new logo is selected to use auto-color
-    setCustomColor(null);
+    
+    try {
+      let processedFile = file;
+      
+      // Automatically compress large images for better performance
+      if (file.size > compressionThreshold) {
+        setLogoError('Compressing large image...');
+        processedFile = await compressImage(file, 800, 0.8);
+        setLogoError(null);
+      }
+      
+      setLogo(processedFile);
+      // Reset custom color when new logo is selected to use auto-color
+      setCustomColor(null);
+    } catch (error) {
+      setLogoError('Failed to process image. Please try a different image.');
+      console.error('Image processing error:', error);
+    }
   };
 
   const handleColorChange = (color: string) => {

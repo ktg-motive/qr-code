@@ -3,7 +3,7 @@ import { Upload } from 'lucide-react';
 import Button from './Button';
 
 interface FileUploadProps {
-  onFileSelect: (file: File) => void;
+  onFileSelect: (file: File) => void | Promise<void>;
   accept?: string;
   error?: string | null;
 }
@@ -25,6 +25,7 @@ export default function FileUpload({ onFileSelect, accept = 'image/*', error }: 
         ref={fileInputRef}
         onChange={handleFileChange}
         accept={accept}
+        capture="environment"
         className="hidden"
       />
       <Button
@@ -34,7 +35,8 @@ export default function FileUpload({ onFileSelect, accept = 'image/*', error }: 
         onClick={() => fileInputRef.current?.click()}
       >
         <Upload className="w-4 h-4 mr-2" />
-        Upload Logo
+        <span className="hidden sm:inline">Upload Logo</span>
+        <span className="sm:hidden">Upload or Take Photo</span>
       </Button>
       {error && <p className="text-sm text-destructive">{error}</p>}
     </div>
