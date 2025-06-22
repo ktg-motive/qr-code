@@ -19,7 +19,7 @@ export default function Header() {
             href="https://www.la-ai.io" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="text-primary hover:text-primary/80 font-medium transition-colors text-xs flex-shrink-0"
+            className="text-blue-500 hover:text-blue-400 font-medium transition-colors text-xs flex-shrink-0"
           >
             <span className="hidden sm:inline">Visit LA-AI →</span>
             <span className="sm:hidden">Visit →</span>

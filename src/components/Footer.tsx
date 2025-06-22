@@ -14,7 +14,7 @@ export default function Footer() {
               href="https://www.la-ai.io" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="text-primary hover:text-primary/80 font-medium transition-colors"
+              className="text-blue-500 hover:text-blue-400 font-medium transition-colors"
             >
               Lower Alabama AI
             </a>
